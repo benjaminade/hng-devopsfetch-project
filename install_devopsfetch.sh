@@ -30,9 +30,18 @@ cat << EOF > /etc/systemd/system/devopsfetch.service
 Description=DevOpsFetch Service
 After=network.target
 
+
 [Service]
-ExecStart=/usr/local/bin/devopsfetch.sh --monitor
-Restart=on-failure
+ExecStart=/usr/local/bin/devopsfetch.sh -p -d -n -u
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=devopsfetch
+User=root
+
+# [Service]
+# ExecStart=/usr/local/bin/devopsfetch.sh --monitor
+# Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

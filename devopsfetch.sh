@@ -67,64 +67,15 @@ user_details() {
 }
 
 time_range() {
-    echo "activities ..."
-    last
-    # Custom command to display activities within a time range
+    local start=$1
+    local end=$2
+
+    if [ -z "$end" ]; then
+        journalctl --since="$start 00:00:00" --until="$start 23:59:59" | format_output "Time Source Message"
+    else
+        journalctl --since="$start" --until="$end" | format_output "Time Source Message"
+    fi
 }
-
-
-# time_range() {
-#     local start=$1
-#     local end=$2
-
-#     # Check if format_output and log_event functions exist
-#     if ! command -v format_output &> /dev/null; then
-#         echo "Error: format_output function is not defined."
-#         exit 1
-#     fi
-#     if ! command -v log_event &> /dev/null; then
-#         echo "Error: log_event function is not defined."
-#         exit 1
-#     fi
-
-#     if [ -z "$end" ]; then
-#         journalctl --since="$start 00:00:00" --until="$start 23:59:59" 2>/dev/null | format_output "Time Source Message"
-#         if [ $? -ne 0 ]; then
-#             echo "Permission denied: Please run the script with sudo to access system logs."
-#             exit 1
-#         fi
-#         log_event "Displayed activities for date $start"
-#     else
-#         journalctl --since="$start" --until="$end" 2>/dev/null | format_output "Time Source Message"
-#         if [ $? -ne 0 ]; then
-#             echo "Permission denied: Please run the script with sudo to access system logs."
-#             exit 1
-#         fi
-#         log_event "Displayed activities from $start to $end"
-#     fi
-# }
-
-
-# time_range() {
-#     local start=$1
-#     local end=$2
-
-#     if [ -z "$end" ]; then
-#         journalctl --since="$start 00:00:00" --until="$start 23:59:59" 2>/dev/null | format_output "Time Source Message"
-#         if [ $? -ne 0 ]; then
-#             echo "Permission denied: Please run the script with sudo to access system logs."
-#             exit 1
-#         fi
-#         log_event "Displayed activities for date $start"
-#     else
-#         journalctl --since="$start" --until="$end" 2>/dev/null | format_output "Time Source Message"
-#         if [ $? -ne 0 ]; then
-#             echo "Permission denied: Please run the script with sudo to access system logs."
-#             exit 1
-#         fi
-#         log_event "Displayed activities from $start to $end"
-#     fi
-# }
 
 format_output() {
     local columns="$1"
