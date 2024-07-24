@@ -26,7 +26,8 @@ DevOpsFetch is a tool for server information retrieval and monitoring. It collec
     bash
     ./devopsfetch.sh -d
 
-      ## Test providing detailed information about a specific Docker container (replace container_name with an actual container name):
+      ## Test providing detailed information about a specific Docker container 
+         (replace container_name with an actual container name):
     bash
     ./devopsfetch.sh -d container_name
 
@@ -34,7 +35,7 @@ DevOpsFetch is a tool for server information retrieval and monitoring. It collec
     bash
     ./devopsfetch.sh -n
 
-      ## Test providing detailed configuration information for a specific Nginx domain (replace domain_name with an actual domain):
+      ## Test providing detailed configuration information for a specific Nginx domain       (replace domain_name with an actual domain):
     bash
     ./devopsfetch.sh -n domain_name
 
@@ -42,11 +43,13 @@ DevOpsFetch is a tool for server information retrieval and monitoring. It collec
     bash
     ./devopsfetch.sh -u
 
-      ## Test providing detailed information about a specific user (replace username with an actual username):
+      ## Test providing detailed information about a specific user
+         (replace username with an actual username):
     bash
     ./devopsfetch.sh -u username
 
-      ## Test displaying activities within a specified time range (replace start and end with actual dates):
+      ## Test displaying activities within a specified time range 
+         (replace start and end with actual dates):
     bash
     ./devopsfetch.sh -t "2024-07-01" "2024-07-10"
 
