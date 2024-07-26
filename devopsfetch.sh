@@ -1,11 +1,12 @@
 #!/bin/bash
 
-LOG_FILE="/var/log/devopsfetch.log"
+LOG_FILE="/var/log/devopsfetch/devopsfetch.log"
 
 log_event() {
-    local message="$1"
-    sudo echo "$(date '+%Y-%m-%d %H:%M:%S') - $message" >> $LOG_FILE
+    local message=$1
+    echo "$(date '+%Y-%m-%d %H:%M:%S') - $message" | sudo tee -a $LOG_FILE > /dev/null
 }
+
 
 display_help() {
     echo "Usage: $0 [option...]"
@@ -104,10 +105,10 @@ format_output() {
 
 monitor_system() {
     while true; do
-        list_ports
+        list_ports 
         list_docker
-        list_nginx
-        list_users
+        list_nginx 
+        list_users 
         sleep 60 # Monitor every 60 seconds
     done
 }

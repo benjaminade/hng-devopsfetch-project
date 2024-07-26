@@ -10,6 +10,10 @@ fi
 # Install necessary packages and dependencies
 apt-get update
 apt-get install -y net-tools docker.io nginx jq logrotate
+usermod -aG docker ubuntu
+newgrp docker
+
+
 
 # Create log directory and set permissions
 mkdir -p /var/log/devopsfetch
@@ -33,15 +37,15 @@ After=network.target
 
 [Service]
 ExecStart=/usr/local/bin/devopsfetch.sh -p -d -n -u
-Restart=always
+Restart=on-failure
+#Restart=Always
+#RestartSec=30s
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=devopsfetch
 User=root
 
-# [Service]
-# ExecStart=/usr/local/bin/devopsfetch.sh --monitor
-# Restart=on-failure
+
 
 [Install]
 WantedBy=multi-user.target
@@ -52,7 +56,8 @@ systemctl daemon-reload
 systemctl enable devopsfetch.service
 systemctl start devopsfetch.service
 
-# Define source and destination paths
+
+# Define source and destination paths to copy the logrotate conf file
 SOURCE="devopsfetch_logrotate.conf"
 DESTINATION="/etc/logrotate.d/devopsfetch"
 
